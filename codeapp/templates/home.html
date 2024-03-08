@@ -2,8 +2,24 @@
 {% block content %}
 <h1 id="homepage_header">Final project</h1>
 
-<!-- TODO -->
-<h2>Insert your table here!</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Score Phrase</th>
+                <th>Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score_phrase, count in counter.items()|sort(attribute='0')%}
+                <tr>
+                    <td>{{ score_phrase }}</td>
+                    <td>{{ count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 
 <img src="{{ url_for('bp.image') }}" class="rounded mx-auto d-block" alt="Plot with analysis">
 
