@@ -3,7 +3,7 @@
 <h1 id="homepage_header">Final project</h1>
 
 
-    <table>
+    <table class="table table-borderd table-hover">
         <thead>
             <tr>
                 <th>Score Phrase</th>
@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for score_phrase, count in counter.items()|sort(attribute='0')%}
+            {% for score_phrase, count in counter.items()%}
                 <tr>
                     <td>{{ score_phrase }}</td>
                     <td>{{ count }}</td>

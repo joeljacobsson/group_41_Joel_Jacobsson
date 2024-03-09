@@ -33,7 +33,6 @@ def home() -> Response:
 
     # get the statistics that is supposed to be shown
     counter: dict[str, int] = calculate_statistics(dataset)
-    sorted_count = dict(sorted(counter.items(), key=lambda x: counter.index(x[0])))
 
     # render the page
     return render_template("home.html", counter=counter)
@@ -43,30 +42,30 @@ def home() -> Response:
 def image() -> Response:
     # gets dataset
     dataset: list[Game] = get_data_list()
-
     # get the statistics that is supposed to be shown
     counter: dict[str, int] = calculate_statistics(dataset)
 
     # creating the plot
-
     fig = Figure()
     fig.gca().bar(
-        list(sorted(counter.keys())),
-        [counter[x] for x in sorted(counter.keys())],
+        list(counter.keys()),
+        list(counter.values()),
         color="gray",
         alpha=0.5,
         zorder=2,
     )
     fig.gca().plot(
-        list(sorted(counter.keys())),
-        [counter[x] for x in sorted(counter.keys())],
+        list(counter.keys()),
+        list(counter.values()),
         marker="x",
         color="#25a848",
         zorder=3,
     )
     fig.gca().grid(ls=":", zorder=1)
-    fig.gca().set_xlabel("Year")
-    fig.gca().set_ylabel("Number of movies")
+    fig.gca().set_xticks(range(len(counter.items())))
+    fig.gca().set_xticklabels(counter.keys(), rotation=-45, ha="left")
+    fig.gca().set_xlabel("Score Phrase")
+    fig.gca().set_ylabel("Number of Games")
     fig.tight_layout()
 
     ################ START -  THIS PART MUST NOT BE CHANGED BY STUDENTS ################
@@ -88,7 +87,6 @@ def about() -> Response:
 
 @bp.get("/json-dataset")
 def get_json_dataset() -> Response:
-
     # gets dataset
     dataset: list[Game] = get_data_list()
 
